@@ -1,9 +1,9 @@
 package MySpring.controllers;
 
-import MySpring.Patient;
-import MySpring.PatientRepository;
+import MySpring.model.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import MySpring.services.PatientService;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,86 +12,36 @@ import java.util.Optional;
 @RequestMapping("api/v1/patients")
 public class controller {
 
-
-    private final PatientRepository patientRepository;
+    private final PatientService patientService;
 
     @Autowired
-    public controller(PatientRepository patientRepository) {
-        this.patientRepository = patientRepository;
-
+    public controller(PatientService patientService) {
+        this.patientService = patientService;
     }
-
-    // CRUD
 
     // READ
     @GetMapping
     public List<Patient> getList(){
-        return patientRepository.findAll();
+       return patientService.getPatients();
     }
     // CREATE
     @PostMapping
-    public void addPatient(@RequestBody NewPatient patient) {
-        Patient patient1 = new Patient();
-        patient1.setName(patient.name());
-        patient1.setSurname(patient.surname());
-        patient1.setAge(patient.age());
-        patient1.setGender(patient.gender());
-        patient1.setAddress(patient.address());
-        patient1.setEntryDate(patient.entryDate());
-        patient1.setExitDate(patient.exitDate());
-        patient1.setSickness(patient.sickness());
-        patient1.setTreatment(patient.treatment());
-        patient1.setDoctor(patient.doctor());
-        patient1.setNurse(patient.nurse());
-        patient1.setAddress(patient.address());
-        patient1.setRoom(patient.room());
-        patient1.setBed(patient.bed());
-
-        patientRepository.save(patient1);
+    public void addPatient(@RequestBody PatientService.NewPatient patient) {
+        patientService.savePatient(patient);
     }
 
     // DELETE
     @DeleteMapping("{patientId}")
     public void deletePatient(@PathVariable("patientId")  Integer id){
-        patientRepository.deleteById(id);
+        patientService.deletePatient(id);
     }
+
     // UPDATE
     @PutMapping("{patientId}")
-    public String updatePatient(@PathVariable("patientId") Integer id,@RequestBody NewPatient patient){
-
-        Optional<Patient> patient1 = patientRepository.findById(id);
-
-        if(patient1.isPresent()){
-
-            patient1.get().setName(patient.name);
-            patient1.get().setSurname(patient.surname);
-            patient1.get().setAge(patient.age);
-
-            patientRepository.save(patient1.get());
-
-            return "Patient updated successfully";
-        }else{
-            return "Failed to find data with ID: "+id;
-        }
-
+    public String updatePatient(@PathVariable("patientId") Integer id,@RequestBody PatientService.NewPatient patient){
+        return patientService.updatePatient(id, patient);
     }
 
-    static record NewPatient(
-
-            String name,
-            String surname,
-            int age,
-            String gender,
-            String address,
-            String entryDate,
-            String exitDate,
-            String sickness,
-            String treatment,
-            String doctor,
-            String nurse,
-            String room,
-            String bed
-    ){}
 
 
 }

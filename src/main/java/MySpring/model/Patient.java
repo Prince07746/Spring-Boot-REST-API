@@ -1,9 +1,8 @@
-package MySpring;
+package MySpring.model;
 
 import jakarta.persistence.*;
 
 import java.util.Objects;
-import java.util.UUID;
 
 @Entity
 public class Patient {

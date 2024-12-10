@@ -1,4 +1,20 @@
 services:
+  app:
+    container_name: hospital-spring-boot-container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3030:3030"
+    networks:
+      - db
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/hospital
+      SPRING_DATASOURCE_USERNAME: prince
+      SPRING_DATASOURCE_PASSWORD: matongo
+
   db:
     container_name: postgres
     image: postgres
