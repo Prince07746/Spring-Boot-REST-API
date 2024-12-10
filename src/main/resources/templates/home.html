@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home API</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<h1>Welcome to the home page</h1>
+
+<!--String name;
+    String surname;
+    int age;
+    String gender;
+    String address;
+    String entryDate;
+    String exitDate;
+    String sickness;
+    String treatment;
+    String doctor;
+    String nurse;
+    String room;
+    String bed;-->
+
+<section>
+
+<div id="employees-create">
+<h3>Add Patient</h3>
+    <hr>
+    <form method="post" action="/addPatient">
+        <input type="text" name="name" placeholder="Enter name">
+        <input type="text" name="surname" placeholder="Enter surname">
+        <input type="number" name="age" placeholder="Enter age">
+        <input type="text" name="gender" placeholder="Enter gender">
+        <input type="text" name="address" placeholder="Enter address">
+        <input type="text" name="entryDate" placeholder="Enter entryDate">
+        <input type="text" name="exitDate" placeholder="Enter exitDate">
+        <input type="text" name="sickness" placeholder="Enter sickness">
+        <input type="text" name="treatment" placeholder="Enter treatment">
+        <input type="text" name="doctor" placeholder="Enter doctor">
+        <input type="text" name="nurse" placeholder="Enter nurse">
+        <input type="text" name="room" placeholder="Enter room">
+        <input type="text" name="bed" placeholder="Enter bed">
+        <input type="submit" name="submit" value="Submit">
+    </form>
+</div>
+
+
+<div id="patients">
+<h3>Get all Patient</h3>
+    <hr>
+    <a href="/getList">Get all employees</a>
+</div>
+
+
+<div id="delete">
+    <h3>delete Patient</h3>
+    <input id="id" type="text" name="id" placeholder="Enter id">
+    <button onclick="deletePatient()">Delete</button>
+    <hr>
+</div>
+
+
+</section>
+
+<script>
+
+    function deletePatient() {
+        const id = document.getElementById("id").value;
+        fetch(`/deletePatient/${id}`, {
+            method: "DELETE"
+        }).then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Patients</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<h1>Welcome to Patient Management</h1>
+
+<!-- Display Patients -->
+<center>
+    <a href="/home">Back</a>
+</center>
+<div>
+    <h3>All Patients</h3>
+    <ul>
+        <li th:each="patient : ${patients}">
+            <p><strong>Name:</strong> <span th:text="${patient.name}"></span></p>
+            <p><strong>Surname:</strong> <span th:text="${patient.surname}"></span></p>
+            <p><strong>Age:</strong> <span th:text="${patient.age}"></span></p>
+            <hr>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

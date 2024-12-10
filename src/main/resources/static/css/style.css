@@ -1,0 +1,35 @@
+
+
+
+
+section{
+width: 100%;
+display: flex;
+flex-wrap: wrap;
+flex-direction: row;
+justify-content: spacee-around;
+margin: 20px;
+}
+
+section div{
+padding-top: 20px;
+margin: 20px;
+}
+
+form{
+width: 20%;
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+}
+
+form input{
+margin: 5px;
+border-radius: 5px;
+padding: 10px;
+border: solid 1px #000;
+outline: none;
+}
+form button{
+margin: 10px;
+padding: 10px
+}
